@@ -14,7 +14,8 @@ class NotificationMessages
 {
     private static $message = [
         'alert_message_login_failed' => "Alert: Multiple Failed Login Attempts",
-        'failed_login_attempts_message' => "User %s has had %d failed login attempts"
+        'failed_login_attempts_message' => "User %s has had %d failed login attempts",
+        'ldap_connection_failed' => "Failed to connect to LDAP. Verify the host and LDAPS support."
     ];
 
     public static function getMessage(string $key,array $params = []): string

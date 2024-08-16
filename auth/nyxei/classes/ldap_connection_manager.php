@@ -24,7 +24,7 @@ class LdapConnectionManager
         $this->ldapConfig =  $ldapConfig;        
     }
 
-    public function connect()
+    public function ldap_connection()
     {
         $ldap_url = "ldaps://{$this->ldapConfig->host}:{$this->ldapConfig->port}";
 
@@ -49,5 +49,10 @@ class LdapConnectionManager
         $bind_password = $password ?? $this->ldapConfig->bind_password;
 
         return ldap_bind($ldap_connection, $bind_user, $bind_password);
+    }
+
+    public function closeLdapConnection($ldap_connection)
+    {
+        ldap_unbind($ldap_connection);
     }
 }

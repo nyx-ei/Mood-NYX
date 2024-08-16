@@ -13,7 +13,7 @@ defined('MOODLE_INTERNAL') || die();
 class NotificationMessages
 {
     private static $message = [
-        'alert_message_login_failed' => "Alert: Multiple Failed Login Attempts",
+        'alert_message_login_failed' => "Alert: multiple failed login attempts",
         'failed_login_attempts_message' => "User %s has had %d failed login attempts",
         'ldap_connection_failed' => "Failed to connect to LDAP. Verify the host and LDAPS support.",
         'invalid_credentials' => "Invalid Credentials",

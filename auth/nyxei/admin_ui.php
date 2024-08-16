@@ -24,14 +24,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ad_group_role_mappings
 }
 
 echo $OUTPUT->header();
-echo '<h2>' . get_string('ad_group_role_mappings', 'auth_nyxei') . '</h2>';
 
-$current_mappings = get_config('auth_nyxei', 'ad_group_role_mappings');
-echo '<form method="post">';
-echo '<textarea name="ad_group_role_mappings" rows="10" cols="50">' . s($current_mappings) . '</textarea>';
-echo '<br><br>';
-echo '<input type="submit" value="' . get_string('savechanges') . '" class="btn btn-primary">';
-echo '</form>';
+$headerTitle = get_string('ad_group_role_mappings', 'auth_nyxei');
+$currentMappings = s(get_config('auth_nyxei', 'ad_group_role_mappings'));
+$saveButtonText = get_string('savechanges');
 
-// Affiche le pied de page
+$html = <<<HTML
+<h2>{$headerTitle}</h2>
+
+<form method="post">
+    <textarea name="ad_group_role_mappings" rows="10" cols="50">{$currentMappings}</textarea>
+    <br><br>
+    <input type="submit" value="{$saveButtonText}" class="btn btn-primary">
+</form>
+HTML;
+
+echo $html;
 echo $OUTPUT->footer();

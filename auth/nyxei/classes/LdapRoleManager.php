@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace auth_nyxei;
 
+
 defined('MOODLE_INTERNAL') || die();
 
 class LdapRoleManager

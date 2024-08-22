@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace auth_nyxei;
 
-use auth_nyxei\NotificationMessages;
 
 defined('MOODLE_INTERNAL') || die();
 

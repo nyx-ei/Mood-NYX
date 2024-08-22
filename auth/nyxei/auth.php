@@ -1,5 +1,11 @@
 <?php
 
+use auth_nyxei\LdapConfig;
+use auth_nyxei\LdapRoleManager;
+use auth_nyxei\LdapUserManager;
+use auth_nyxei\LdapConnectionManager;
+
+
 /**
  * Active directory Authentification plugin
  * Authentification using LDAPS (Lightweight Directory Access Protocol)
@@ -12,12 +18,6 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-global $CFG;
-
-use auth_nyxei\LdapConfig;
-use auth_nyxei\LdapConnectionManager;
-use auth_nyxei\LdapUserManager;
-use auth_nyxei\LdapRoleManager;
 
 require_once($CFG->libdir .'/setuplib.php');
 require_once($CFG->libdir . '/moodlelib.php');

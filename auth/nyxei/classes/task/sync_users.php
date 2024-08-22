@@ -9,7 +9,7 @@
  * @copyright  2024 Nyx-EI <help@nyx-ei.tech>
  */
 
-namespace nyxei\task;
+namespace auth_nyxei\task;
 
 global $CFG;
 

@@ -22,7 +22,7 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.PATH_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull"
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.PATH_DIR }} && git pull ${{ secrets.MAIN_BRANCH }}"
 
     - name: Cleanup
       if: always()

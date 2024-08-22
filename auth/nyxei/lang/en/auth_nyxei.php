@@ -7,8 +7,8 @@
  * @copyright 2024 Nyx-EI {@link https://nyx-ei.tech}
  */
 
-$string['pluginname'] = 'Active Directory Authentication';
-$string['auth_nyxeidescription'] = 'This plugin allows authentication against an Active Directory server using LDAPS.';
+$string['pluginname'] = 'Active Directory Authentification';
+$string['auth_nyxeidescription'] = 'This plugin allows authentification against an Active Directory server using LDAPS.';
 $string['host'] = 'AD Host';
 $string['host_desc'] = 'The hostname or IP address of the Active Directory server.';
 $string['login_attempts'] = 'Number of login attempts';

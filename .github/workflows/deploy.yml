@@ -14,15 +14,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install SSH Key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        known_hosts: ${{ secrets.SSH_HOST }}
-
-    - name: Deploy to Server
+    - name: Set up SSH key
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.PATH_DIR }} && git pull ${{ secrets.MAIN_BRANCH }}"
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy to Server and Run Migrations
+      run: |
+        ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git pull origin ${{ secrets.MAIN_BRANCH }}"
 
     - name: Cleanup
       if: always()

@@ -2,6 +2,7 @@
 
 /**
  * @package youtubevideo
+ * 
  * @copyright 2024 NYX-EI {@link http://nyx-ei.tech}
  * @author NYX-EI <help@nyx-ei.tech>
  */
@@ -37,23 +38,9 @@ $output = $PAGE->get_renderer('mod_youtubevideo');
 echo $output->header();
 echo $output->heading(format_string($youtubevideo->name));
 
-if (!empty($youtubevideo->intro)) {
-    echo $output->box(format_module_intro('youtubevideo', $youtubevideo, $cm->id), 'generalbox mod_introbox', 'youtubevideorintro');
-}
+echo $output->module_intro(format_module_intro('youtubevideo', $youtubevideo, $cm->id));
 
 $youtube_id = get_youtube_id($youtubevideo->youtubeurl);
-
-$video_container = html_writer::start_div('youtubevideo-container');
-$video_container .= html_writer::empty_tag('iframe', array(
-    'width' => '560',
-    'height' => '315',
-    'src' => "https://www.youtube.com/embed/$youtube_id",
-    'frameborder' => '0',
-    'allow' => 'autoplay; encrypted-media',
-    'allowfullscreen' => 'allowfullscreen'
-));
-$video_container .= html_writer::end_div();
-
-echo $video_container;
+echo $output->youtube_video($youtube_id);
 
 echo $output->footer();

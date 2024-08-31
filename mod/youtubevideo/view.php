@@ -6,72 +6,54 @@
  * @author NYX-EI <help@nyx-ei.tech>
  */
 
-require('../../config.php');
+require_once(__DIR__ . '/../../config.php');
 require_once($CFG->dirroot.'/mod/youtubevideo/lib.php');
-require_once($CFG->dirroot.'/mod/youtubevideo/form/youtubevideo_form.php');
 
-//id of course
-$id = required_param('id', PARAM_INT);
+$id = optional_param('id', 0, PARAM_INT);
+$y = optional_param('y', 0, PARAM_INT); //youtube instance ID
 
-$cm = get_coursemodule_from_id('youtubevideo', $id, 0, false, MUST_EXIST);
-$course = get_course($cm->course);
-$context = context_module::instance($cm->id);
-require_login($course, true, $cm);
-
-$video_url = optional_param('video_url', '', PARAM_URL);
-
-if ($video_url)
-{
-
-    if (filter_var($video_url, FILTER_VALIDATE_URL) && strpos($video_url, 'youtube.com') !== false)
-    {
-        $video_id = parse_youtube_url($video_url);
-        echo html_writer::start_tag(
-            'iframe',
-            array(
-                'width' => '560',
-                'height' => '315',
-                'src' => "https://www.youtube.com/embed/$video_id",
-                'frameborder' => '0',
-                'allow' => 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
-                'allowfullscreen' => 'true'
-            ),
-        );
-        echo html_writer::end_tag('iframe');
-    } else {
-        echo $OUTPUT->notification(get_string('invalid_url', 'youtubevideo'), 'notiferror');
-    }
-
+if ($id) {
+    $cm = get_coursemodule_from_id('youtubevideo', $id, 0, false, MUST_EXIST);
+    $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+    $youtubevideo = $DB->get_record('youtubevideo', array('id' => $cm->instance), '*', MUST_EXIST);
+} elseif ($y) {
+    $youtubevideo = $DB->get_record('youtubevideo', array('id' => $y), '*', MUST_EXIST);
+    $course = $DB->get_record('course', array('id' => $youtubevideo->course), '*', MUST_EXIST);
+    $cm = get_coursemodule_from_instance('youtubevideo', $youtubevideo->id, $course->id, false, MUST_EXIST);
 } else {
-    $mform = new youtubevideo_form();
-
-    if ($mform->is_cancelled())
-    {
-        echo $OUTPUT->notification(get_string('form_cancelled', 'youtubevideo'), 'notifinfo');
-        redirect(new moodle_url('/course/view.php', array('id' => $course->id)), '', 3);
-        exit();
-    } elseif ($data = $mform->get_data()) {
-        global $DB;
-
-        $record = new stdClass();
-        $record->course = $course->id;
-        $record->video_url = $data->video_url;
-        $record->timemodified = time();
-
-        try {
-            $DB->insert_record('youtubevideo', $record);
-            redirect(new moodle_url('/course/view.php', array('id' => $course->id)));
-        } catch (Exception $e) {
-            echo $OUTPUT->notification(get_string('insert_error', 'youtubevideo'), 'notiferror');
-        }
-    } else {
-        echo $OUTPUT->heading(get_string('add_youtube_video', 'youtubevideo'));
-        $mform->display();
-    }
-
+    throw new moodle_exception('missingidandcmid', 'youtubevideo');
 }
-function parse_youtube_url($url)
-{
-    parse_str(parse_url($url, PHP_URL_QUERY), $params);
-    return $params['v'];
+
+require_login($course, true, $cm);
+$context = context_module::instance($cm->id);
+
+$PAGE->set_url('/mod/youtubevideo/view.php', array('id' => $cm->id));
+$PAGE->set_title(format_string($youtubevideo->name));
+$PAGE->set_heading(format_string($course->fullname));
+$PAGE->set_context($context);
+
+$output = $PAGE->get_renderer('mod_youtubevideo');
+
+echo $output->header();
+echo $output->heading(format_string($youtubevideo->name));
+
+if (!empty($youtubevideo->intro)) {
+    echo $output->box(format_module_intro('youtubevideo', $youtubevideo, $cm->id), 'generalbox mod_introbox', 'youtubevideorintro');
 }
+
+$youtube_id = get_youtube_id($youtubevideo->youtubeurl);
+
+$video_container = html_writer::start_div('youtubevideo-container');
+$video_container .= html_writer::empty_tag('iframe', array(
+    'width' => '560',
+    'height' => '315',
+    'src' => "https://www.youtube.com/embed/$youtube_id",
+    'frameborder' => '0',
+    'allow' => 'autoplay; encrypted-media',
+    'allowfullscreen' => 'allowfullscreen'
+));
+$video_container .= html_writer::end_div();
+
+echo $video_container;
+
+echo $output->footer();

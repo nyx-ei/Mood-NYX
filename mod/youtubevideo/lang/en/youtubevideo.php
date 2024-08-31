@@ -7,11 +7,12 @@
  * @copyright 2024 Nyx-EI {@link https://nyx-ei.tech}
  */
 
+$string['modulename'] = 'YouTube Video';
+$string['modulenameplural'] = 'YouTube Videos';
+$string['modulename_help'] = 'The YouTube video module allows a teacher to embed a YouTube video as a course resource.';
+$string['youtubevideo:addinstance'] = 'Add a new YouTube video';
+$string['youtubevideo:view'] = 'View YouTube video';
 $string['pluginname'] = 'YouTube Video';
-$string['video_url'] = 'YouTube Video URL';
-$string['submit'] = 'Submit';
-$string['add_youtube_video'] = 'Add YouTube Video';
-$string['form_cancelled'] = 'The form has been cancelled. You are being redirected.';
-$string['invalid_url'] = 'Invalid Url.';
-$string['insert_error'] = 'An error occurred during data insertion.';
-
+$string['youtubeurl'] = 'YouTube URL';
+$string['youtubeurl_help'] = 'Enter the URL of the YouTube video you want to embed.';
+$string['invalidyoutubeurl'] = 'The entered YouTube URL is not valid.';

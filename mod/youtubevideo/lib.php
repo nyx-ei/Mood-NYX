@@ -51,6 +51,23 @@ function youtubevideo_supports($feature)
 function get_youtube_id($url)
 {
     $parts = parse_url($url);
+
+    // Vérifie la présence de paramètres dans l'URL
+    if (!empty($parts['query'])) {
+        parse_str($parts['query'], $qs);
+        return $qs['v'] ?? $qs['vi'] ?? false;  // Récupère l'ID 'v' ou 'vi' ou retourne false
+    }
+
+    // Vérifie la présence du chemin dans l'URL
+    if (!empty($parts['path'])) {
+        $path = explode('/', trim($parts['path'], '/'));
+        return end($path);  // Retourne le dernier segment du chemin
+    }
+
+    return false;
+}
+{
+    $parts = parse_url($url);
     if(isset($parts['query'])){
         parse_str($parts['query'], $qs);
         if(isset($qs['v'])) return $qs['v'];

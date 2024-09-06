@@ -1,8 +1,8 @@
 <?php
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
-    'local/youtubesearch:use' => array(
+$capabilities = [
+    'local/youtubesearch:use' => [
         'riskbitmask' => RISK_SPAM,
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
@@ -11,5 +11,5 @@ $capabilities = array(
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW
         )
-    )
-);
+    ]
+];

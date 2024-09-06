@@ -39,26 +39,27 @@ function youtubevideo_delete_instance($id)
 
 function youtubevideo_supports($feature)
 {
-    switch($feature) {
-        case FEATURE_MOD_INTRO: return true;
-        case FEATURE_SHOW_DESCRIPTION: return true;
-        case FEATURE_GRADE_HAS_GRADE: return false;
-        case FEATURE_BACKUP_MOODLE2: return true;
-        default: return null;
-    }
+    $features = [
+        FEATURE_MOD_INTRO => true,
+        FEATURE_SHOW_DESCRIPTION => true,
+        FEATURE_GRADE_HAS_GRADE => false,
+        FEATURE_BACKUP_MOODLE2 => true,
+    ];
+    return $features[$feature] ?? null;
 }
 
 function get_youtube_id($url)
 {
     $parts = parse_url($url);
-    if(isset($parts['query'])){
+    
+    if (!empty($parts['query'])) {
         parse_str($parts['query'], $qs);
-        if(isset($qs['v'])) return $qs['v'];
-        else if(isset($qs['vi'])) return $qs['vi'];
+        return $qs['v'] ?? $qs['vi'] ?? false;  
     }
-    if(isset($parts['path'])){
+    
+    if (!empty($parts['path'])) {
         $path = explode('/', trim($parts['path'], '/'));
-        return $path[count($path)-1];
+        return end($path);  
     }
     return false;
 }

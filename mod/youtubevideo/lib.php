@@ -46,6 +46,16 @@ function youtubevideo_supports($feature)
         case FEATURE_BACKUP_MOODLE2: return true;
         default: return null;
     }
+function youtubevideo_supports($feature)
+{
+    $features = [
+        FEATURE_MOD_INTRO => true,
+        FEATURE_SHOW_DESCRIPTION => true,
+        FEATURE_GRADE_HAS_GRADE => false,
+        FEATURE_BACKUP_MOODLE2 => true,
+    ];
+
+    return $features[$feature] ?? null;
 }
 
 function get_youtube_id($url)

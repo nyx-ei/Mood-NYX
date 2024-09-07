@@ -1,0 +1,26 @@
+.youtube-search-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.youtube-video-item {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.youtube-video-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+.youtube-video-item h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.youtube-video-item button {
+    margin: 0.25rem;
+}

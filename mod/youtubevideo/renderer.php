@@ -80,4 +80,24 @@ class mod_youtubevideo_renderer extends plugin_renderer_base
     {
         return $this->output->footer();
     }
+
+    /**
+     * Render The Manage Link
+     * 
+     * @param int $courseid
+     * @param context $context
+     * @return string HTML
+     */
+    public function manage_link($courseid, $context)
+    {
+        if (has_capability('mod/youtubevideo:manage', $context)) {
+            $manageurl = new moodle_url('/mod/youtubevideo/manage.php', array('id' => $courseid));
+            return html_writer::div(
+                html_writer::link($manageurl, get_string('manageyoutubevideos', 'youtubevideo')),
+                'youtubevideo-manage-link'
+            );
+        }
+
+        return '';
+    }
 }

@@ -36,11 +36,12 @@ $PAGE->set_context($context);
 $output = $PAGE->get_renderer('mod_youtubevideo');
 
 echo $output->header();
+
+echo $output->manage_link($course->id, $context);
+
 echo $output->heading(format_string($youtubevideo->name));
 
 echo $output->module_intro(format_module_intro('youtubevideo', $youtubevideo, $cm->id));
-
-echo $output->manage_link($course->id, $context);
 
 $youtube_id = get_youtube_id($youtubevideo->youtubeurl);
 echo $output->youtube_video($youtube_id);

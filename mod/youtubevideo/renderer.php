@@ -92,10 +92,17 @@ class mod_youtubevideo_renderer extends plugin_renderer_base
     {
         if (has_capability('mod/youtubevideo:manage', $context)) {
             $manageurl = new moodle_url('/mod/youtubevideo/manage.php', array('id' => $courseid));
-            return html_writer::div(
-                html_writer::link($manageurl, get_string('manageyoutubevideos', 'youtubevideo')),
-                'youtubevideo-manage-link'
+            
+            $icon = html_writer::tag('i', '', array('class' => 'fa fa-cog', 'aria-hidden' => 'true'));
+            $buttontext = $icon . ' ' . get_string('manageyoutubevideos', 'youtubevideo');
+            
+            $button = html_writer::link(
+                $manageurl,
+                $buttontext,
+                array('class' => 'btn btn-primary youtubevideo-manage-btn', 'role' => 'button')
             );
+            
+            return html_writer::div($button, 'youtubevideo-manage-button');
         }
 
         return '';

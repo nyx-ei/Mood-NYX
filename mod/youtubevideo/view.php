@@ -43,4 +43,12 @@ echo $output->module_intro(format_module_intro('youtubevideo', $youtubevideo, $c
 $youtube_id = get_youtube_id($youtubevideo->youtubeurl);
 echo $output->youtube_video($youtube_id);
 
+if (has_capability('mod/youtubevideo:manage', $context)) {
+    $manageurl = new moodle_url('/mod/youtubevideo/manage.php', array('id' => $course->id));
+    echo html_writer::div(
+        html_writer::link($manageurl, get_string('manageyoutubevideos', 'youtubevideo')),
+        'youtubevideo-manage-link'
+    );
+}
+
 echo $output->footer();

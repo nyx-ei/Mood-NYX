@@ -24,3 +24,4 @@ $string['savechanges'] = 'Save changes';
 $string['changessaved'] = 'Changes saved successfully';
 $string['manageyoutubevideos'] = 'Manage YouTube videos';
 $string['youtubevideo:manage'] = 'Manage YouTube videos';
+$string['pluginadministration'] = 'YouTube Video Administration';

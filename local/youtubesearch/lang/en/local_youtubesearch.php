@@ -16,3 +16,4 @@ $string['api_key_desc'] = 'Enter your YouTube Data API v3 key here';
 $string['search_placeholder'] = 'Enter your search query';
 $string['video_added'] = 'Video added to the course successfully';
 $string['error_adding_video'] = 'An error occurred while adding the video to the course';
+$string['pluginadministration'] = 'Youtube Administration';

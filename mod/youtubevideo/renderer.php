@@ -90,21 +90,51 @@ class mod_youtubevideo_renderer extends plugin_renderer_base
      */
     public function manage_link($courseid, $context)
     {
-        if (has_capability('mod/youtubevideo:manage', $context)) {
-            $manageurl = new moodle_url('/mod/youtubevideo/manage.php', array('id' => $courseid));
-            
-            $icon = html_writer::tag('i', '', array('class' => 'fa fa-cog', 'aria-hidden' => 'true'));
-            $buttontext = $icon . ' ' . get_string('manageyoutubevideos', 'youtubevideo');
-            
-            $button = html_writer::link(
-                $manageurl,
-                $buttontext,
-                array('class' => 'btn btn-primary youtubevideo-manage-btn', 'role' => 'button')
-            );
-            
-            return html_writer::div($button, 'youtubevideo-manage-button');
+        if (!has_capability('mod/youtubevideo:manage', $context)) {
+            return '';
         }
+    
+        $buttonAttributes = [
+            'class' => 'btn btn-primary youtubevideo-manage-btn',
+            'role' => 'button'
+        ];
+    
+        $buttonContent = $this->get_icon('fa-cog') . ' ' . $this->get_string('manageyoutubevideos');
+        $manageUrl = $this->get_manage_url($courseid);
+    
+        $button = $this->create_button($manageUrl, $buttonContent, $buttonAttributes);
+    
+        return $this->wrap_in_div($button, 'youtubevideo-manage-button');
+    }
 
-        return '';
+    private function get_icon($iconClass)
+    {
+        $icon = html_writer::tag('i', '', ['class' => "fa $iconClass", 'aria-hidden' => 'true']);
+
+        return $icon;
+    }
+
+    private function get_string($identified)
+    {
+        return get_string($identified, 'youtubevideo');
+    }
+
+    private function get_manage_url($courseid)
+    {
+        $manageUrl = new moodle_url('/mod/youtubevideo/manage.php', ['id' => $courseid]);
+
+        return $manageUrl;
+    }
+
+    private function create_button($url, $content, $attributes)
+    {
+        $button = html_writer::link($url, $content, $attributes);
+
+        return $button;
+    }
+
+    private function wrap_in_div($content, $class)
+    {
+        return html_writer::div($content, $class);
     }
 }

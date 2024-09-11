@@ -57,18 +57,37 @@ class mod_youtubevideo_renderer extends plugin_renderer_base
      */
     public function youtube_video($youtube_id)
     {
-        $video_container = html_writer::start_div('youtubevideo-container');
-        $video_container .= html_writer::empty_tag('iframe', array(
-            'width' => '560',
-            'height' => '315',
-            'src' => "https://www.youtube.com/embed/$youtube_id",
-            'frameborder' => '0',
-            'allow' => 'autoplay; encrypted-media',
-            'allowfullscreen' => 'allowfullscreen'
-        ));
-        $video_container .= html_writer::end_div();
+        $thumbnail_url = "https://img.youtube.com/vi/{$youtube_id}/0.jpg";
+        $embed_url = "https://www.youtube-nocookie.com/embed/{$youtube_id}";
 
-        return $video_container;
+        $output = html_writer::start_div('youtubevideo-container', ['data-youtube-id' => $youtube_id]);
+        $output .= html_writer::empty_tag('img', [
+            'src' => $thumbnail_url,
+            'alt' => 'Video thumbnail',
+            'class' => 'youtube-thumbnail'
+        ]);
+        $output .= html_writer::div('', 'play-button');
+        $output .= html_writer::end_div();
+
+        $this->page->requires->js_amd_inline("
+        require(['jquery'], function($) {
+            $('.youtubevideo-container').on('click', function() {
+                var container = $(this);
+                var youtubeId = container.data('youtube-id');
+                var iframe = $('<iframe>', {
+                    src: '{$embed_url}?autoplay=1',
+                    frameborder: '0',
+                    allow: 'autoplay; encrypted-media',
+                    allowfullscreen: 'allowfullscreen',
+                    width: '100%',
+                    height: '100%'
+                });
+                container.html(iframe);
+            });
+        });
+    ");
+
+        return $output;
     }
 
     /**
@@ -93,17 +112,17 @@ class mod_youtubevideo_renderer extends plugin_renderer_base
         if (!has_capability('mod/youtubevideo:manage', $context)) {
             return '';
         }
-    
+
         $buttonAttributes = [
             'class' => 'btn btn-primary youtubevideo-manage-btn',
             'role' => 'button'
         ];
-    
+
         $buttonContent = $this->get_icon('fa-cog') . ' ' . $this->get_string('manageyoutubevideos');
         $manageUrl = $this->get_manage_url($courseid);
-    
+
         $button = $this->create_button($manageUrl, $buttonContent, $buttonAttributes);
-    
+
         return $this->wrap_in_div($button, 'youtubevideo-manage-button');
     }
 

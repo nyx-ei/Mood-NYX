@@ -30,5 +30,4 @@ $string['eventvideoupdated'] = 'YouTube video updated';
 $string['eventvideodeleted'] = 'YouTube video deleted';
 $string['pluginadministration'] = 'YouTube Video Administration';
 
-// https://www.youtube.com/watch?v=yyUHQIec83I
 

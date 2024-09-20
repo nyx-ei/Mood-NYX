@@ -32,6 +32,7 @@ function youtubesearch_delete_instance($id) {
     return true;
 }
 
+
 class youtubesearch {
     public function add_video_to_course($video_id, $course_id) {
         global $DB;

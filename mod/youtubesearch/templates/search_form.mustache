@@ -1,4 +1,54 @@
-<form method="post" action="{{action}}" class="youtubesearch-form">
-    <input type="text" name="search_query" placeholder="{{#str}}search_placeholder, mod_youtubesearch{{/str}}" required>
-    <input type="submit" value="{{#str}}search_button, mod_youtubesearch{{/str}}" class="btn btn-primary">
-</form>
+<div class="youtubesearch-form-container">
+    <form method="post" action="{{action}}" class="youtubesearch-form">
+        <div class="search-wrapper">
+            <input type="text" name="search_query" class="youtubesearch-input" placeholder="{{#str}}search_placeholder, mod_youtubesearch{{/str}}" required>
+            <button type="submit" class="youtubesearch-button">
+                {{#str}}search_button, mod_youtubesearch{{/str}}
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .youtubesearch-form-container {
+        max-width: 600px;
+        margin: 20px auto;
+    }
+    .search-wrapper {
+        display: flex;
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .youtubesearch-input {
+        flex-grow: 1;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        outline: none;
+    }
+    .youtubesearch-button {
+        background-color: #0f6cbf;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .youtubesearch-button:hover {
+        background-color: #0d5ca3;
+    }
+    @media (max-width: 768px) {
+        .search-wrapper {
+            flex-direction: column;
+            border-radius: 15px;
+        }
+        .youtubesearch-input {
+            border-radius: 15px 15px 0 0;
+        }
+        .youtubesearch-button {
+            border-radius: 0 0 15px 15px;
+        }
+    }
+</style>

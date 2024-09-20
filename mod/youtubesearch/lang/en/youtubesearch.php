@@ -24,3 +24,5 @@ $string['youtubesearch:search'] = 'Perform YouTube searches';
 $string['youtubesearch:addvideo'] = 'Add YouTube videos to the course';
 
 $string['nopermissiontosearch'] = 'You do not have permission to perform YouTube searches in this activity.';
+
+$string['pluginadministration'] = 'YouTube search Video Administration';

@@ -1,0 +1,33 @@
+{{#videos}}
+    <div class="youtubesearch-video">
+        <h3>{{title}}</h3>
+        <img src="{{thumbnail}}" alt="{{title}}">
+        <p>{{description}}</p>
+        <div class="youtubesearch-preview" data-video-id="{{id}}">
+            <button class="btn btn-secondary youtubesearch-preview-btn">{{#str}}preview_button, mod_youtubesearch{{/str}}</button>
+        </div>
+        <form method="post" action="add_video.php">
+            <input type="hidden" name="video_id" value="{{id}}">
+            <input type="hidden" name="course_id" value="{{course_id}}">
+            <input type="submit" value="{{#str}}add_to_course, mod_youtubesearch{{/str}}" class="btn btn-primary">
+        </form>
+    </div>
+{{/videos}}
+
+<script>
+document.querySelectorAll('.youtubesearch-preview-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const videoId = this.closest('.youtubesearch-preview').dataset.videoId;
+        const iframe = document.createElement('iframe');
+        iframe.width = '560';
+        iframe.height = '315';
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        
+        const previewDiv = this.closest('.youtubesearch-preview');
+        previewDiv.innerHTML = '';
+        previewDiv.appendChild(iframe);
+    });
+});
+</script>

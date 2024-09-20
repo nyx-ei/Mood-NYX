@@ -10,7 +10,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_youtubevideo';
-$plugin->version   = 2024100500;
+$plugin->version   = 2024100700;
 $plugin->requires  = 2024062700;
 $plugin->release   = '1.2';
 $plugin->maturity  = MATURITY_STABLE;

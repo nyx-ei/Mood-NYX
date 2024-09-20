@@ -63,3 +63,10 @@ function get_youtube_id($url)
     }
     return false;
 }
+
+function youtubevideo_get_styles() {
+    global $CFG;
+    $styles = array();
+    $styles[] = new moodle_url('/mod/youtubevideo/styles.css');
+    return $styles;
+}

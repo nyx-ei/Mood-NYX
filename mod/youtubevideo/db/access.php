@@ -58,5 +58,16 @@ $capabilities = [
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
         ],
+        'clonepermissionsfrom' => 'moodle/course:manageactivities'
+    ],
+
+    'mod/youtubevideo:manage' => [
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_COURSE,
+        'archetypes' => [
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ],
+        'clonepermissionsfrom' => 'moodle/course:manageactivities',
     ],
 ];

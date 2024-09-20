@@ -33,9 +33,14 @@ $PAGE->set_title(format_string($youtubevideo->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 
+$PAGE->requires->css('/mod/youtubevideo/styles.css');
+
 $output = $PAGE->get_renderer('mod_youtubevideo');
 
 echo $output->header();
+
+echo $output->manage_link($course->id, $context);
+
 echo $output->heading(format_string($youtubevideo->name));
 
 echo $output->module_intro(format_module_intro('youtubevideo', $youtubevideo, $cm->id));

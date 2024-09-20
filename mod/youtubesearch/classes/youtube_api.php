@@ -3,7 +3,7 @@
 namespace mod_youtubesearch;
 
 /**
- * @package youtubevideo
+ * @package youtubesearch
  * @copyright 2024 NYX-EI {@link https://nyx-ei.tech}
  * @author NYX-EI <help@nyx-ei.tech>
  */

@@ -1,4 +1,5 @@
 <?php
+
 $string['modulename'] = 'YouTube Search';
 $string['modulenameplural'] = 'YouTube Searches';
 $string['pluginname'] = 'YouTube Search';

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package youtubesearch
  * @copyright 2024 NYX-EI {@link https://nyx-ei.tech}
@@ -10,24 +9,17 @@ require_once(__DIR__ . '/../../config.php');
 require_once($CFG->dirroot . '/mod/youtubesearch/lib.php');
 
 $id = optional_param('id', 0, PARAM_INT);
-$y  = optional_param('y', 0, PARAM_INT);
 
 if ($id) {
     $cm = get_coursemodule_from_id('youtubesearch', $id, 0, false, MUST_EXIST);
     $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
     $youtubesearch = $DB->get_record('youtubesearch', array('id' => $cm->instance), '*', MUST_EXIST);
-} else if ($y) {
-    $youtubesearch = $DB->get_record('youtubesearch', array('id' => $y), '*', MUST_EXIST);
-    $course = $DB->get_record('course', array('id' => $youtubesearch->course), '*', MUST_EXIST);
-    $cm = get_coursemodule_from_instance('youtubesearch', $youtubesearch->id, $course->id, false, MUST_EXIST);
 } else {
-    print_error('You must specify a course_module ID or an instance ID');
+    print_error('You must specify a course_module ID');
 }
 
 require_login($course, true, $cm);
-
 $context = context_module::instance($cm->id);
-require_capability('mod/youtubesearch:view', $context);
 
 $PAGE->set_url('/mod/youtubesearch/view.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($youtubesearch->name));
